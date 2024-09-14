@@ -12,7 +12,7 @@ class Program
         Console.WriteLine("\nConfiguration Finished. Press Any Key To Launch MainMenu\n");
         Console.ReadLine();
 
-        GameEngine.GetMainMenu();
+        GameEngine.ViewMainMenu();
     }
 }
 

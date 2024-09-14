@@ -117,7 +117,7 @@ internal class ManageStacksController
     }
     internal static void GetWorkingStackMenu(string currentWorkingStack)
     {
-        MainHelper.GetShowBanner("Current Stack Menu", Color.Gold1);
+        MainHelper.DisplayBanner("Current Stack Menu", Color.Gold1);
 
         try
         {
@@ -125,7 +125,7 @@ internal class ManageStacksController
 
             string command = Console.ReadLine();
 
-            ExecuteCurrentStackMenuOptions.GetExecuteCurrentStackMenuOptions(command, currentWorkingStack);
+            ExecuteCurrentStackMenuOptions.ProcessStackMenuCommand(command, currentWorkingStack);
         }
 
         catch (Exception ex)

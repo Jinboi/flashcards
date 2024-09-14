@@ -5,7 +5,6 @@ using System.Data.SqlClient;
 namespace Flash.Helper.MainHelper;
 internal class MainHelper
 {
-
     internal static void ShowAllExistingStacks()
     {
         using (SqlConnection connection = new SqlConnection(Configuration.ConnectionString))
@@ -180,7 +179,7 @@ internal class MainHelper
         Console.WriteLine("Press Any Key To Return To MainMenu");
         Console.ReadLine();
 
-        GameEngine.GetMainMenu();
+        GameEngine.ViewMainMenu();
     }
 
 
@@ -259,9 +258,7 @@ internal class MainHelper
             Console.WriteLine("Error: " + ex.Message);
         }
     }
-
-
-    internal static void GetShowBanner(string figletText, Color figletColor)
+    internal static void DisplayBanner(string figletText, Color figletColor)
     {
         AnsiConsole.Write
             (
@@ -279,9 +276,6 @@ internal class MainHelper
                     .RoundedBorder()
                     .BorderColor(Color.White));
     }
-
-
-
     internal static void GetShowMainMenuOptions()
     {
         var rows = new List<Text>(){

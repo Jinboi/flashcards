@@ -1,18 +1,17 @@
 ﻿using Flash.Helper.MainHelper;
-using Flash;
 using Spectre.Console;
 using System.Data.SqlClient;
 
 namespace Flash;
 internal class GameEngine
 {
-    internal static void GetMainMenu()
+    internal static void ViewMainMenu()
     {
         Console.Clear();
         bool closeApp = false;
         while (closeApp == false)
         {
-            MainHelper.GetShowBanner("MAIN MENU", Color.White);
+            MainHelper.DisplayBanner("MAIN MENU", Color.White);
 
             MainHelper.GetShowMainMenuOptions();
 
@@ -25,7 +24,7 @@ internal class GameEngine
     {
         Console.Clear();
 
-        MainHelper.GetShowBanner("Manage Stacks", Color.RosyBrown);
+        MainHelper.DisplayBanner("Manage Stacks", Color.RosyBrown);
 
         int stacksTableCount = MainHelper.GetCheckStacksTableExists();
 
@@ -55,7 +54,7 @@ internal class GameEngine
     {
         Console.Clear();
 
-        MainHelper.GetShowBanner("Manage Stacks", Color.Green);
+        MainHelper.DisplayBanner("Manage Stacks", Color.Green);
 
         int stacksTableCount = ManageStacksController.GetCheckStacksTable();
 
@@ -93,7 +92,7 @@ internal class GameEngine
     {
         Console.Clear();
 
-        MainHelper.GetShowBanner("Study", Color.Yellow);
+        MainHelper.DisplayBanner("Study", Color.Yellow);
 
         using (SqlConnection connection = new SqlConnection(Configuration.ConnectionString))
         {
@@ -143,7 +142,7 @@ internal class GameEngine
     {
         Console.Clear();
 
-        MainHelper.GetShowBanner("View Study Session Data", Color.Orange3);
+        MainHelper.DisplayBanner("View Study Session Data", Color.Orange3);
 
         MainHelper.GetShowStudyHistory();
 
@@ -153,7 +152,7 @@ internal class GameEngine
     {
         Console.Clear();
 
-        MainHelper.GetShowBanner("All Flashcards in All Stacks", Color.Plum1);
+        MainHelper.DisplayBanner("All Flashcards in All Stacks", Color.Plum1);
 
         MainHelper.GetShowAllCardsInAllStacks();
 
