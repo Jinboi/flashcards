@@ -1,4 +1,6 @@
-﻿using System.Data.SqlClient;
+﻿//remove this as you would assume server and model is created and connected.
+
+using System.Data.SqlClient;
 
 namespace Flash;
 internal class ConfigureFlashCardDatabase

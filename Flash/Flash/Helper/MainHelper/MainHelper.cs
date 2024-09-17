@@ -1,6 +1,7 @@
 ﻿using Flash.Helper.DTO;
 using Spectre.Console;
 using System.Data.SqlClient;
+using Flashcards.ConsoleApp.Views;
 
 namespace Flash.Helper.MainHelper;
 internal class MainHelper
@@ -179,7 +180,7 @@ internal class MainHelper
         Console.WriteLine("Press Any Key To Return To MainMenu");
         Console.ReadLine();
 
-        GameEngine.ViewMainMenu();
+        MainMenuPage.ViewMainMenu();
     }
 
 
@@ -276,20 +277,7 @@ internal class MainHelper
                     .RoundedBorder()
                     .BorderColor(Color.White));
     }
-    internal static void GetShowMainMenuOptions()
-    {
-        var rows = new List<Text>(){
-            new Text("-Type 0 to Exit", new Style(Color.Red, Color.Black)),
-            new Text("-Type 1 to Manage Stacks", new Style(Color.Green, Color.Black)),
-            new Text("-Type 2 to Manage Flashcards", new Style(Color.Blue, Color.Black)),
-            new Text("-Type 3 to Study", new Style(Color.Purple, Color.Black)),
-            new Text("-Type 4 to Study History", new Style(Color.Orange3, Color.Black)),
-            new Text("-Type 5 to Delete a Stack",  new Style(Color.Aqua, Color.Black))
-            };
-
-        AnsiConsole.Write(new Rows(rows));
-    }
-
+    
 
 
     internal static void GetShowStudyHistory()

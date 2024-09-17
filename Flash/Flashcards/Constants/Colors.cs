@@ -1,4 +1,7 @@
-﻿using Spectre.
+﻿/*
+
+Shouldn't this be in ConsoleApp? Idk
+
 
 namespace Flashcards
 {
@@ -36,3 +39,4 @@ namespace Flashcards
         public const string GoodbyeMessage = "\nGoodbye!\n";
     }
 }
+*/

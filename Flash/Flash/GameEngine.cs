@@ -4,22 +4,7 @@ using System.Data.SqlClient;
 
 namespace Flash;
 internal class GameEngine
-{
-    internal static void ViewMainMenu()
-    {
-        Console.Clear();
-        bool closeApp = false;
-        while (closeApp == false)
-        {
-            MainHelper.DisplayBanner("MAIN MENU", Color.White);
-
-            MainHelper.GetShowMainMenuOptions();
-
-            string command = Console.ReadLine();
-
-            ExecuteMainMenuOptions.GetExecuteMainMenuOptions(command, closeApp);
-        }
-    }
+{    
     internal static void GetDeleteStacks()
     {
         Console.Clear();

@@ -1,4 +1,6 @@
-﻿namespace Flash.Helper.MainHelper;
+﻿using Flashcards.ConsoleApp.Views;
+
+namespace Flash.Helper.MainHelper;
 
 internal class ExecuteCurrentStackMenuOptions
 {
@@ -10,7 +12,7 @@ internal class ExecuteCurrentStackMenuOptions
             {
                 case StackMenuCommand.Exit:
                     Console.WriteLine("\nGoodbye!\n");
-                    GameEngine.ViewMainMenu();
+                    MainMenuPage.ViewMainMenu();
                     break;
 
                 case StackMenuCommand.ChangeStack:
