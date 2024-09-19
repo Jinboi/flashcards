@@ -1,4 +1,4 @@
-﻿namespace Flash.Helper.MainHelper;
+﻿namespace Flashcards.ConsoleApp.Models;
 internal enum StackMenuCommand
 {
     Exit = 0,

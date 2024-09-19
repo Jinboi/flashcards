@@ -9,12 +9,7 @@ class Program
 {
     static void Main(string[] args)
     {
-        //ConfigureFlashCardDatabase.CreateFlashCardDatabase();
-
-       // Console.WriteLine("\nConfiguration Finished. Press Any Key To Launch MainMenu\n");
-        //Console.ReadLine();   
-
-        MainMenuPage.ViewMainMenu();
+        MainMenuPage.Show();
     }
 }
 

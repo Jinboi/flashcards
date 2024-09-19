@@ -2,62 +2,11 @@
 using Spectre.Console;
 using System.Data.SqlClient;
 using Flashcards.ConsoleApp.Views;
+using Flashcards.ConsoleApp.Helper.MainHelper;
 
 namespace Flash.Helper.MainHelper;
-internal class MainHelper
+public static class MainHelper
 {
-    internal static void ShowAllExistingStacks()
-    {
-        using (SqlConnection connection = new SqlConnection(Configuration.ConnectionString))
-        {
-            connection.Open();
-            connection.ChangeDatabase("DataBaseFlashCard");
-
-            try
-            {
-                List<StacksDto> stacks = new List<StacksDto>();
-
-                string showAllStacks = @"
-                    SELECT Stack_Primary_Id, Name
-                    FROM Stacks";
-
-                using (SqlCommand command = new SqlCommand(showAllStacks, connection))
-                {
-                    using (SqlDataReader reader = command.ExecuteReader())
-                    {
-                        if (reader.HasRows)
-                        {
-                            while (reader.Read())
-                            {
-                                StacksDto stack = new StacksDto
-                                {
-                                    Stack_Primary_Id = reader.GetInt32(0),
-                                    Name = reader.GetString(1)
-                                };
-                                stacks.Add(stack);
-                            }
-
-                            Console.WriteLine("Stacks in the 'Stacks' Table:\n");
-
-                            foreach (var stack in stacks)
-                            {
-                                Console.WriteLine($"Stack_Primary_Id: {stack.Stack_Primary_Id}, Name: {stack.Name}");
-                            }
-                        }
-                        else
-                        {
-                            Console.WriteLine("No stacks found.");
-                        }
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine("Error: " + ex.Message);
-            }
-        }
-    }
-
 
     internal static void GetCheckExistingStacks(string currentWorkingStack)
     {
@@ -173,14 +122,12 @@ internal class MainHelper
             }
         }
     }
-
-
     internal static void MainMenuReturnComments()
     {
         Console.WriteLine("Press Any Key To Return To MainMenu");
         Console.ReadLine();
 
-        MainMenuPage.ViewMainMenu();
+        MainMenuPage.Show();
     }
 
 
@@ -235,7 +182,7 @@ internal class MainHelper
                                 flashcards.Add(flashcard);
                             }
 
-                            Renumber.GetRenumberFlashcards(flashcards);
+                            GetRenumberFlashcards(flashcards);
 
                             foreach (var flashcard in flashcards)
                             {
@@ -312,7 +259,7 @@ internal class MainHelper
                                 studys.Add(study);
                             }
 
-                            Renumber.GetRenumberStudys(studys);
+                            GetRenumberStudys(studys);
 
                             foreach (var study in studys)
                             {
@@ -355,5 +302,24 @@ internal class MainHelper
         }
         return stackIdToDelete;
     }
+
+
+    internal static void GetRenumberFlashcards(List<FlashcardDto> flashcards)
+    {
+        for (int i = 0; i < flashcards.Count; i++)
+        {
+            flashcards[i].Flashcard_Primary_Id = i + 1;
+        }
+    }
+    internal static void GetRenumberStudys(List<StudyDto> studys)
+    {
+        for (int i = 0; i < studys.Count; i++)
+        {
+            studys[i].Study_Primary_Id = i + 1;
+        }
+    }
+
+
+
 
 }
