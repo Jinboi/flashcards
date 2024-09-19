@@ -3,48 +3,52 @@ using Flash;
 using System.Data.SqlClient;
 using Flashcards.ConsoleApp.Controllers;
 using Flashcards.ConsoleApp.Models;
+using Flashcards.ConsoleApp.Views;
+using Flash.Helper.MainHelper;
+using Spectre.Console;
 
 namespace Flashcards.ConsoleApp.Views;
 internal class SelectStackPage
 {
-
-
-    /// <summary>
-    /// WAS WORING ON THIS
-    /// </summary>
     internal static void Show()
     {
-        Console.WriteLine("Checking to see if you already have a stack");
+        Console.Clear();
 
-        int stacksTableCount = StacksController.GetCheckStacksTable();
+        MainHelper.DisplayBanner("Select Stack", Color.Green);
 
-        if (stacksTableCount == 0)
-        {
-            Console.WriteLine("No stacks found. Moving to CreateStackPage");
-            CreateStackPage.Show();
-        }
-        else
-        {
-            Console.WriteLine("StacksTable already exists\n");
-        }
 
-        Console.WriteLine("All the existing stacks");
 
-        StacksController.ShowAllStacks();
 
-        Console.WriteLine("\nInput Name of the Stack you want to work with Or Input 0 to Return to MainMenu");
-        Console.WriteLine("\nIf you add a Stack Name that doesn't exist, you'll be creating a new Stack under that Name.");
 
-        string currentWorkingStack = Console.ReadLine();
 
-        Console.WriteLine("Stack Chosen");
+        ShowSelectStackCommands();
 
-        Console.WriteLine("Moving to ManageStackPage");
+        string command = Console.ReadLine();
+
+        ExecuteSelectStackCommands(command);
+
+
+
+
 
         ManageStacksPage.Show(currentWorkingStack);
+
     }
 
-    private static void ExecuteSelectStackCommands(string command, bool closeApp)
+    private static void ShowSelectStackCommands()
+    {
+        var rows = new List<Text>(){
+                new Text("-Type 0 to Return to Main Menu", new Style(Color.Red, Color.Black)),
+                new Text("-Type 1 to Check Stack", new Style(Color.Green, Color.Black)),
+                new Text("-Type 2 to Create Stack", new Style(Color.Blue, Color.Black)),
+                new Text("-Type 3 to Show Stacks", new Style(Color.Purple, Color.Black)),
+                };
+
+        AnsiConsole.Write(new Rows(rows));
+    }
+
+
+    private static void ExecuteSelectStackCommands(string command)
     {
         if (Enum.TryParse(command, out SelectStackCommand menuCommand))
         {
