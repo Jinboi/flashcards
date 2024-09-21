@@ -24,19 +24,9 @@ internal class ShowStackPage
             Console.WriteLine("StacksTable already exists\n");
         }
 
-        Console.WriteLine("All the existing stacks");
-
-        StacksController.ShowAllStacks();
-
-        Console.WriteLine("\nInput Name of the Stack you want to work with Or Input 0 to Return to MainMenu");
-        Console.WriteLine("\nIf you add a Stack Name that doesn't exist, you'll be creating a new Stack under that Name.");
-
-        string currentWorkingStack = Console.ReadLine();
-
-        Console.WriteLine("Stack Chosen");
+        
 
         Console.WriteLine("Moving to ManageStackPage");
 
-        //Something is wrong here//
     }
 }

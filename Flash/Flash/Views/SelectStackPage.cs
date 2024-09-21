@@ -1,11 +1,7 @@
-﻿using Flash.Helper.DTO;
-using Flash;
-using System.Data.SqlClient;
-using Flashcards.ConsoleApp.Controllers;
-using Flashcards.ConsoleApp.Models;
-using Flashcards.ConsoleApp.Views;
-using Flash.Helper.MainHelper;
+﻿using Flash.Helper.MainHelper;
 using Spectre.Console;
+using Flashcards.ConsoleApp.Controllers;
+using Flashcards.ConsoleApp.Views;
 
 namespace Flashcards.ConsoleApp.Views;
 internal class SelectStackPage
@@ -14,66 +10,67 @@ internal class SelectStackPage
     {
         Console.Clear();
 
-        MainHelper.DisplayBanner("Select Stack", Color.Green);
+        MainHelper.DisplayBanner("Select Stack", Color.Green);        
 
+        CheckStack();
 
+        string currentWorkingStack = ChooseStack();
 
-
-
-
-        ShowSelectStackCommands();
-
-        string command = Console.ReadLine();
-
-        ExecuteSelectStackCommands(command);
-
-
-
-
-
-        ManageStacksPage.Show(currentWorkingStack);
+        MoveToManageStacksPage(currentWorkingStack);
 
     }
 
-    private static void ShowSelectStackCommands()
+    private static void MoveToManageStacksPage(string currentWorkingStack)
     {
-        var rows = new List<Text>(){
-                new Text("-Type 0 to Return to Main Menu", new Style(Color.Red, Color.Black)),
-                new Text("-Type 1 to Check Stack", new Style(Color.Green, Color.Black)),
-                new Text("-Type 2 to Create Stack", new Style(Color.Blue, Color.Black)),
-                new Text("-Type 3 to Show Stacks", new Style(Color.Purple, Color.Black)),
-                };
 
-        AnsiConsole.Write(new Rows(rows));
-    }
-
-
-    private static void ExecuteSelectStackCommands(string command)
-    {
-        if (Enum.TryParse(command, out SelectStackCommand menuCommand))
+        if (string.IsNullOrEmpty(currentWorkingStack) || currentWorkingStack == "0")
         {
-            switch (menuCommand)
-            {
-                case SelectStackCommand.Exit:
-                    MainMenuPage.Show();
-                    break;
+            // Go Back to Main Menu if no stack is chosen
+            MainMenuPage.Show();
+        }
+        else
+        {
+            MainHelper.GetCheckExistingStacks(currentWorkingStack);
 
-                case SelectStackCommand.CheckStack:
-                    CheckStackPage.Show();
-                    break;
+            ManageStacksPage.Show(currentWorkingStack);
+        }
+    }
 
-                case SelectStackCommand.CreateStack:
-                    CreateStackPage.Show();
-                    break;
+    private static string ChooseStack()
+    {
 
-                case SelectStackCommand.ShowStacks:
-                    ShowStackPage.Show();
-                    break;
 
-                default:
-                    Console.WriteLine("\nInvalid Command. Please type a number from 0 to 4.\n");
-                    break;
-            }
+        Console.WriteLine("All the existing stacks");
+
+        StacksController.ShowAllStacks();
+
+        Console.WriteLine("\nInput Name of the Stack you want to work with Or Input 0 to Return to MainMenu");
+        Console.WriteLine("\nIf you add a Stack Name that doesn't exist, you'll be creating a new Stack under that Name.");
+
+        string currentWorkingStack = Console.ReadLine();
+
+        Console.WriteLine("Stack Chosen");
+
+
+
+        return currentWorkingStack;
+
+    }
+    private static void CheckStack()
+    {
+        Console.WriteLine("Checking to see if you already have a stack");
+
+        int stacksTableCount = StacksController.GetCheckStacksTable();
+
+        if (stacksTableCount == 0)
+        {
+            Console.WriteLine("No stacks found.");
+            StacksController.CreateStack();
+        }
+        else
+        {
+            Console.WriteLine("StacksTable already exists\n");
         }
     }
 }
+

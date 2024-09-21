@@ -3,7 +3,6 @@ using Flash.Helper.MainHelper;
 using Flashcards.ConsoleApp.Controllers;
 using Spectre.Console;
 
-
 namespace Flashcards.ConsoleApp.Views
 {
     internal class ManageStacksPage
@@ -14,25 +13,8 @@ namespace Flashcards.ConsoleApp.Views
 
             MainHelper.DisplayBanner("Manage Stacks", Color.Green);
 
+            //            StacksController.GetWorkingStackMenu(currentWorkingStack);
 
-            /////////////////////////////////////////////////////
-
-
-            if (currentWorkingStack == "0")
-            {
-                MainHelper.MainMenuReturnComments();
-            }
-
-            else
-            {
-                MainHelper.GetCheckExistingStacks(currentWorkingStack);
-
-                StacksController.GetWorkingStackMenu(currentWorkingStack);
-            }
-
-            MainHelper.MainMenuReturnComments();
         }
-
-
     }
 }
