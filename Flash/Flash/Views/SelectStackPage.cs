@@ -17,7 +17,6 @@ internal class SelectStackPage
         string currentWorkingStack = ChooseStack();
 
         MoveToManageStacksPage(currentWorkingStack);
-
     }
 
     private static void MoveToManageStacksPage(string currentWorkingStack)
@@ -35,10 +34,8 @@ internal class SelectStackPage
             ManageStacksPage.Show(currentWorkingStack);
         }
     }
-
     private static string ChooseStack()
     {
-
 
         Console.WriteLine("All the existing stacks");
 
@@ -50,8 +47,6 @@ internal class SelectStackPage
         string currentWorkingStack = Console.ReadLine();
 
         Console.WriteLine("Stack Chosen");
-
-
 
         return currentWorkingStack;
 

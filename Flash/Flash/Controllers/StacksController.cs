@@ -87,7 +87,6 @@ public static class StacksController
 
         try
         {
-            MainHelper.GetCurrentStackMenuOptions(currentWorkingStack);
 
             string command = Console.ReadLine();
 
