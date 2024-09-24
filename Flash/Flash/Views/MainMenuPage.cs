@@ -47,7 +47,7 @@ internal class MainMenuPage
                     break;
 
                 case MainMenuCommand.ManageStacks:
-                    SelectStackPage.Show();
+                    ManageStacksPage.Show();
                     break;
 
                 case MainMenuCommand.ManageFlashcards:
