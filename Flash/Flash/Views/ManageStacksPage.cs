@@ -14,29 +14,40 @@ namespace Flashcards.ConsoleApp.Views
 
             MainHelper.DisplayBanner("Manage Stacks", Color.Green);
 
-            string currentWorkingStack = "";
+            string currentWorkingStack = "";  // Initial stack is empty
 
-            Console.WriteLine($"Current Stack: {currentWorkingStack}\n");
+            while (true)
+            {
+                Console.Clear();
+                MainHelper.DisplayBanner("Manage Stacks", Color.Green);
+                Console.WriteLine($"Current Stack: {currentWorkingStack}\n");
 
-            showManageStacksMenu();
+                showManageStacksMenu();
 
-            string command = Console.ReadLine();
+                string command = Console.ReadLine();
 
-            ExecuteStackMenuCommand(command, ref currentWorkingStack);
+                if (command == "0")  // Allow returning to the main menu if needed
+                {
+                    MainMenuPage.Show();
+                    break;
+                }
+
+                ExecuteStackMenuCommand(command, ref currentWorkingStack);
+            }
         }
 
         private static void showManageStacksMenu()
         {
-            var rows = new List<Text>(){
-                new Text("-Type 0 to Return to Main Menu", new Style(Color.Red, Color.Black)),
-                new Text("-Type 1 to Select Current Stack", new Style(Color.Purple, Color.Black)),
-                new Text("-Type 2 to Change Current Stack", new Style(Color.Green, Color.Black)),
-                new Text("-Type 3 to View All Flashcards in Stack", new Style(Color.Blue, Color.Black)),
-                new Text("-Type 4 to View X amount of cards in stack", new Style(Color.Purple, Color.Black)),
-                new Text("-Type 5 to Create a Flashcard in current stack", new Style(Color.Orange3, Color.Black)),
-                new Text("-Type 6 to Edit a Flashcard", new Style(Color.Red, Color.Black)),
-                new Text("-Type 7 to Delete a Flashcard", new Style(Color.Green, Color.Black)),
-
+            var rows = new List<Text>()
+            {
+                new Text("- Type 0 to Return to Main Menu", new Style(Color.Red, Color.Black)),
+                new Text("- Type 1 to Select Current Stack", new Style(Color.Purple, Color.Black)),
+                new Text("- Type 2 to Change Current Stack", new Style(Color.Green, Color.Black)),
+                new Text("- Type 3 to View All Flashcards in Stack", new Style(Color.Blue, Color.Black)),
+                new Text("- Type 4 to View X amount of cards in stack", new Style(Color.Purple, Color.Black)),
+                new Text("- Type 5 to Create a Flashcard in current stack", new Style(Color.Orange3, Color.Black)),
+                new Text("- Type 6 to Edit a Flashcard", new Style(Color.Red, Color.Black)),
+                new Text("- Type 7 to Delete a Flashcard", new Style(Color.Green, Color.Black)),
             };
 
             AnsiConsole.Write(new Rows(rows));
@@ -49,43 +60,78 @@ namespace Flashcards.ConsoleApp.Views
                 switch (menuCommand)
                 {
                     case StackMenuCommand.Exit:
-                        Console.WriteLine("\nGoodbye!\n");
+                        Console.WriteLine("\nReturning to Main Menu...\n");
                         MainMenuPage.Show();
                         break;
 
                     case StackMenuCommand.SelectStack:
                         Console.WriteLine("Select Current Stack");
-                        SelectStackPage.Show(out currentWorkingStack);  // Pass currentWorkingStack as out
+                        SelectStackPage.Show(out currentWorkingStack);  // Update `currentWorkingStack` using `out`
                         break;
 
                     case StackMenuCommand.ChangeStack:
                         Console.WriteLine("Change Current Stack");
-                        SelectStackPage.Show(out currentWorkingStack);  // Pass currentWorkingStack as out
+                        ChangeStackPage.Show(out currentWorkingStack);  // Update `currentWorkingStack` using `out`
                         break;
 
                     case StackMenuCommand.ViewAllFlashcards:
-                        Console.WriteLine("View All Flashcards in Stack");
-                        FlashcardController.GetViewAllFlashcards(currentWorkingStack);
+                        if (!string.IsNullOrEmpty(currentWorkingStack))
+                        {
+                            Console.WriteLine("View All Flashcards in Stack");
+                            FlashcardController.GetViewAllFlashcards(currentWorkingStack);
+                        }
+                        else
+                        {
+                            AnsiConsole.Markup("[red]Please select a stack first![/]\n");
+                        }
                         break;
 
                     case StackMenuCommand.ViewXAmountFlashcards:
-                        Console.WriteLine("View X amount of cards in stack");
-                        FlashcardController.GetViewXAmountFlashcards(currentWorkingStack);
+                        if (!string.IsNullOrEmpty(currentWorkingStack))
+                        {
+                            Console.WriteLine("View X amount of cards in stack");
+                            FlashcardController.GetViewXAmountFlashcards(currentWorkingStack);
+                        }
+                        else
+                        {
+                            AnsiConsole.Markup("[red]Please select a stack first![/]\n");
+                        }
                         break;
 
                     case StackMenuCommand.CreateFlashcard:
-                        Console.WriteLine("Create a Flashcard in current stack");
-                        FlashcardController.GetCreateFlashcard(currentWorkingStack);
+                        if (!string.IsNullOrEmpty(currentWorkingStack))
+                        {
+                            Console.WriteLine("Create a Flashcard in current stack");
+                            FlashcardController.GetCreateFlashcard(currentWorkingStack);
+                        }
+                        else
+                        {
+                            AnsiConsole.Markup("[red]Please select a stack first![/]\n");
+                        }
                         break;
 
                     case StackMenuCommand.EditFlashcard:
-                        Console.WriteLine("Edit a Flashcard");
-                        FlashcardController.GetEditFlashcards(currentWorkingStack);
+                        if (!string.IsNullOrEmpty(currentWorkingStack))
+                        {
+                            Console.WriteLine("Edit a Flashcard");
+                            FlashcardController.GetEditFlashcards(currentWorkingStack);
+                        }
+                        else
+                        {
+                            AnsiConsole.Markup("[red]Please select a stack first![/]\n");
+                        }
                         break;
 
                     case StackMenuCommand.DeleteFlashcard:
-                        Console.WriteLine("Delete a Flashcard");
-                        FlashcardController.GetDeleteFlashcards(currentWorkingStack);
+                        if (!string.IsNullOrEmpty(currentWorkingStack))
+                        {
+                            Console.WriteLine("Delete a Flashcard");
+                            FlashcardController.GetDeleteFlashcards(currentWorkingStack);
+                        }
+                        else
+                        {
+                            AnsiConsole.Markup("[red]Please select a stack first![/]\n");
+                        }
                         break;
 
                     default:
@@ -100,4 +146,3 @@ namespace Flashcards.ConsoleApp.Views
         }
     }
 }
-

@@ -2,36 +2,38 @@
 using Spectre.Console;
 using Flashcards.ConsoleApp.Controllers;
 
-namespace Flashcards.ConsoleApp.Views;
-internal class SelectStackPage
+namespace Flashcards.ConsoleApp.Views
 {
-    internal static void Show(out string currentWorkingStack)
+    internal class SelectStackPage
     {
-        Console.Clear();
-
-        MainHelper.DisplayBanner("Select Stack", Color.Green);
-
-        currentWorkingStack = SelectStack();
-    }
-
-    private static string SelectStack()
-    {
-        Console.WriteLine("All the existing stacks");
-
-        StacksController.ShowAllStacks();
-
-        Console.WriteLine("\nInput Name of the Stack you want to work with Or Input 0 to Return to MainMenu");
-
-        string currentWorkingStack = Console.ReadLine();
-
-        if (currentWorkingStack == "0")
+        internal static void Show(out string currentWorkingStack)
         {
-            MainMenuPage.Show();
-            return string.Empty;  // Return empty stack if user chooses to return
+            Console.Clear();
+
+            MainHelper.DisplayBanner("Select Stack", Color.Green);
+
+            currentWorkingStack = SelectStack();
         }
 
-        Console.WriteLine($"Stack Chosen: {currentWorkingStack}");
+        internal static string SelectStack()
+        {
+            Console.WriteLine("All the existing stacks:");
 
-        return currentWorkingStack;
+            StacksController.ShowAllStacks();  // Display available stacks
+
+            Console.WriteLine("\nInput the **name** of the stack you want to work with or input '0' to return to Main Menu.");
+
+            string selectedStack = Console.ReadLine();
+
+            if (selectedStack == "0")
+            {
+                MainMenuPage.Show();
+                return string.Empty;  // Return empty stack if the user chooses to return
+            }
+
+            Console.WriteLine($"Stack Chosen: {selectedStack}");
+
+            return selectedStack;
+        }
     }
 }
